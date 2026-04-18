@@ -1,0 +1,414 @@
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+
+
+      background: linear-gradient(280deg, #d33182, #890e08, #9b27ab, yellow, #ff6f61, #ff9966, green);
+      background-size: 600% 600%;
+
+
+      animation: gradientMove 10s ease infinite;
+    }
+
+    @keyframes gradientMove {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    nav h2 {
+      color: #cbe507;
+      text-shadow: #fefdfd;
+      font-weight: bold;
+    }
+
+    #login-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url("shopcards.jpeg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  /* Optional for better mobile */
+  min-height: 100vh;
+}
+
+    .login-box {
+      padding: 20px;
+      border-radius: 10px;
+      border: 2px solid #d8657a;
+
+      width: 280px;
+      text-align: center;
+      margin-bottom: 30px;
+      background: rgba(243, 187, 187, 0.2);
+      backdrop-filter: blur(8px);
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 10px;
+      background: #ff6f61;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+
+      transition: all 0.3s ease;
+    }
+
+    /* Hover Animation */
+    .login-box button:hover {
+      background: linear-gradient(200deg #4EBC97, #6BBD9F, #FCC0C7);
+      transform: scale(1.05);
+    }
+
+    /* Click Animation */
+    .login-box button:active {
+      background: transparent;
+
+      transform: scale(0.95);
+    }
+
+    .login-box button {
+      position: relative;
+      overflow: hidden;
+    }
+
+
+    .login-box button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+      transition: 0.5s;
+    }
+
+
+    .login-box button:hover::before {
+      left: 100%;
+    }
+
+
+    .login-box button:hover {
+      box-shadow: 0 0 15px rgba(255, 111, 97, 0.8),
+        0 0 30px rgba(151, 15, 78, 0.6);
+    }
+
+    /* NAV */
+    nav {
+      background: linear-gradient(135deg, rgb(237, 107, 129), #6d8523);
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      color: rgb(16, 185, 81);
+      border: 2px solid white;
+    }
+
+    .actions div {
+      background: white;
+      color: #4e9fbf;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    /* FILTER */
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      padding: 20px;
+      flex-wrap: wrap;
+    }
+
+    .filters input,
+    .filters select {
+      padding: 8px;
+    }
+
+    /* PRODUCTS */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+    }
+
+    .card-content {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .btn {
+      background: #ff6f61;
+      color: white;
+      padding: 5px 10px;
+      margin: 5px;
+      display: inline-block;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* MODAL */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      width: 300px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    /* LOGOUT BUTTON */
+    .logout-btn {
+      background: white;
+      color: #ff6f61;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .nav-links span {
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .nav-links span:hover {
+      text-decoration: underline;
+    }
+
+    /* ADS SCROLL */
+
+
+
+
+    .logout-btn:hover {
+      background: #c85e55;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .banner {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .banner-track {
+      display: flex;
+      transition: 0.5s;
+    }
+
+    .banner img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+
+    }
+
+    .category-scroll {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      padding: 20px;
+      background: #fff;
+    }
+
+    .cat-card {
+      min-width: 120px;
+      text-align: center;
+      cursor: pointer;
+      border: 3px solid rgb(235, 181, 101);
+      box-shadow: 5px #ca3c5f;
+    }
+
+    .cat-card img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cat-card p {
+      margin-top: 5px;
+      font-weight: bold;
+    }
+
+    .prev,
+    .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+    
+@media (max-width: 768px) {
+
+  /* NAV */
+  nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  
+  .login-box {
+    width: 90%;
+  }
+
+  /* BANNER */
+  .banner img {
+    height: 180px;
+  }
+
+  
+  .category-scroll {
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .cat-card {
+    min-width: 90px;
+  }
+
+  .cat-card img {
+    width: 60px;
+    height: 60px;
+  }
+
+  
+  .filters {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .filters input,
+  .filters select {
+    width: 90%;
+  }
+
+
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 10px;
+    gap: 10px;
+  }
+
+  
+  .card img {
+    height: 150px;
+  }
+
+  
+  .btn {
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  /* MODAL */
+  .modal-content {
+    width: 90%;
+  }
+}
+@media (max-width: 768px) {
+  #login-page {
+    background-position: center;
+    background-size: cover;
+  }
+}

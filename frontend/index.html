@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+<body>
+   <div id="login-page">
+    <div class="login-box">
+      <h2>Login</h2>
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password">
+      <button onclick="login()">Login</button>
+      <p id="error" style="color:red;"></p>
+    </div>
+  </div>
+
+  <!-- STORE -->
+  <div id="store-page" style="display:none;">
+
+    <nav>
+      <h2>🛍️ SmartCart</h2>
+
+      <div class="actions">
+        <div onclick="toggleWishlist()">❤️ <span id="wishlist-count">0</span></div>
+        <div onclick="toggleCart()">🛒 <span id="cart-count">0</span></div>
+        <div class="logout-btn" onclick="logout()">Logout</div>
+      </div>
+    </nav>
+
+    <div class="banner">
+      <button class="prev">&#10094;</button>
+
+      <div class="banner-track" id="bannerTrack">
+        <img src="https://picsum.photos/1200/300?random=1">
+        <img
+          src="https://alexanderliang.com/wp-content/uploads/2016/01/ralph-lauren-purple-label-mens-fall-2016-snowboard-800x1200.jpg">
+        <img src="https://nypost.com/wp-content/uploads/sites/2/2023/12/primary-copy.jpg">
+        <img src="https://daisylinden.com/wp-content/uploads/group-of-people-fashion-shopping.jpg">
+        <img src="https://picsum.photos/1200/300?random=2">
+        <img src="https://www.seekpng.com/png/full/774-7744281_samsung-electronics-samsung-electronic-product-png.png">
+        <img src="https://images.herzindagi.info/image/2024/Jul/beatiful-printed-cotton-kurti-designs-for-monsoon.jpg">
+        <img src="https://picsum.photos/1200/300?random=3">
+
+      </div>
+
+      <button class="next">&#10095;</button>
+    </div>
+    <div class="category-scroll">
+      <div class="cat-card" onclick="filterCategory('Electronics')">
+        <img
+          src="https://img.freepik.com/premium-photo/collection-electronic-devices-including-laptop-phone-ipod_1065421-12202.jpg">
+        <p>Electronics</p>
+      </div>
+      <div class="cat-card" onclick="filterCategory('Furnitures')">
+        <img
+          src="https://png.pngtree.com/png-vector/20240316/ourlarge/pngtree-furniture-interior-collection-png-image_11986054.png">
+        <p>Furnitures</p>
+      </div>
+      <div class="cat-card" onclick="filterCategory('Books')">
+        <img src="https://i.pinimg.com/originals/73/3d/b1/733db17a1c996623c6c91c75bfa852ca.jpg">
+        <p>Books</p>
+      </div>
+
+      <div class="cat-card" onclick="filterCategory('Fashion')">
+        <img
+          src="https://img.freepik.com/premium-vector/ladies-fashion-logo-vector-design-white-background_917213-252822.jpg">
+        <p>Fashion</p>
+      </div>
+
+      <div class="cat-card" onclick="filterCategory('Beauty')">
+        <img
+          src="https://png.pngtree.com/background/20230422/original/pngtree-multiple-pink-cosmetic-products-in-the-background-picture-image_2453709.jpg">
+        <p>Beauty</p>
+      </div>
+
+      <div class="cat-card" onclick="filterCategory('Toys')">
+        <img
+          src="https://static.vecteezy.com/system/resources/previews/028/535/150/non_2x/a-myriad-of-vibrant-toys-carefully-curated-and-proudly-displayed-generative-ai-photo.jpg">
+        <p>Toys</p>
+      </div>
+
+      <div class="cat-card">
+        <img src="https://i.pinimg.com/originals/90/bc/0c/90bc0c906fc30587b4863d0e6089f364.jpg">
+        <p>More</p>
+      </div>
+    </div>
+
+
+    <div class="filters">
+      <div style="position:relative; width:250px; ">
+        <input type="text" id="search" placeholder="Search..."
+          style="width:100%; padding:10px 40px 10px 10px;border-radius: 5px;">
+
+
+        <label for="imageUpload"
+          style="position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer;">
+          📷
+        </label>
+
+        <input type="file" id="imageUpload" accept="image/*" style="display:none;">
+      </div>
+      <select id="category-filter" style="border-radius: 5px;">
+        <option value="all">All</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Furnitures">Furnitures</option>
+        <option value="Books">Books</option>
+        <option value="Fashion">Fashion</option>
+        <option value="Beauty">Beauty</option>
+        <option value="Toys">Toys</option>
+      </select>
+      <select id="price-filter" style="border-radius: 5px;">
+        <option value="all">All Price</option>
+        <option value="low">Below 20000</option>
+        <option value="high">20000</option>
+        <option value="high">Above 25000</option>
+        <option value="high">Above 70000</option>
+
+
+      </select>
+      <select id="rating-filter" style="border-radius: 5px;">
+        <option value="all">All Rating</option>
+        <option value="4">4+</option>
+        <option value="4">3</option>
+        <option value="4">3+</option>
+
+
+      </select>
+    </div>
+
+    <section class="products" id="product-list"></section>
+
+    <!-- CART -->
+    <div class="modal" id="cart-modal">
+      <div class="modal-content">
+        <h3>Cart</h3>
+        <div id="cart-items"></div>
+        <button onclick="toggleCart()">Close</button>
+      </div>
+    </div>
+
+    <!-- WISHLIST -->
+    <div class="modal" id="wishlist-modal">
+      <div class="modal-content">
+        <h3>Wishlist</h3>
+        <div id="wishlist-items"></div>
+        <button onclick="toggleWishlist()">Close</button>
+      </div>
+    </div>
+
+  </div>
+  <!-- PRODUCT DETAILS MODAL -->
+<div class="modal" id="details-modal">
+  <div class="modal-content" id="details-content">
+    <!-- Data will come from JS -->
+  </div>
+</div>
+<script src="script-mongodb.js"></script>
+  
+</body>
+</html>
