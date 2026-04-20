@@ -7,7 +7,12 @@
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
-  "keywords": ["ecommerce", "shop", "mongodb", "express"],
+  "keywords": [
+    "ecommerce",
+    "shop",
+    "mongodb",
+    "express"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {

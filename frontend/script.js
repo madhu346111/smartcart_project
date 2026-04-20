@@ -42,20 +42,27 @@
       location.reload();
     }
 
-    /* SINGLE WINDOW ONLOAD */
+    /* PAGE LOAD */
     window.addEventListener("load", function () {
-      const isLogin = localStorage.getItem("login");
-      const user = localStorage.getItem("username");
-      const pass = localStorage.getItem("password");
-
-      if (isLogin === "true" && user && pass) {
-        openStore();
-      }
-      renderProducts();
+      fetchProducts();
     });
 
+    /* FETCH PRODUCTS FROM BACKEND */
+    async function fetchProducts() {
+      try {
+        const response = await fetch('http://localhost:5000/api/products');
+        if (!response.ok) throw new Error('Failed to fetch products');
+        products = await response.json();
+        renderProducts();
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        // Fallback to hardcoded if backend not running
+        renderProducts();
+      }
+    }
+
     /* DATA */
-    const products = [
+    let products = [
       { name: "Phone", price: 35000, rating: 4, category: "Electronics", brand: "Samsung Galaxy", img: "https://cdn.mos.cms.futurecdn.net/w97M5jZqNVx9gekuEmsWtg.jpg" },
       { name: "Phone", price: 20000, rating: 4, category: "Electronics", brand: "Realme12 Pro", img: "https://image01.realme.net/general/20230821/1692581604581e94ebbccbb884ed1b8ff273205f58b0b.png" },
       { name: "Phone", price: 134900, rating: 4, category: "Electronics", brand: "iphone15", img: "https://images.macrumors.com/article-new/2023/08/iPhone-15-Pro-Colors-Mock-Feature.jpg" },
@@ -64,7 +71,7 @@
       { name: "Laptop", price: 55000, rating: 5, category: "Electronics", brand: "Dell", img: "https://winblogs.thesourcemediaassets.com/2016/09/Dell-Sept-14.jpg" },
       { name: "Laptop", price: 60000, rating: 5, category: "Electronics", brand: "Apple🍎", img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=200" },
       { name: "Headphones", price: 3000, rating: 4, category: "Electronics", brand: "Sony", img: "https://s.yimg.com/ny/api/res/1.2/g_1SdnKp2HBHOiXSaPpSJQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://s.yimg.com/os/creatr-uploaded-images/2023-04/1ee40cc2-e55b-11ed-b1fe-635016562860" },
-      { name: "Camera", price: 25000, rating: 4, category: "Electronics", brand: "Canon", img: "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6535/6535112cv1d.jpg" },
+      { name: "Camera", price: 15000, rating: 4, category: "Electronics", brand: "Canon", img: "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6535/6535112cv1d.jpg" },
       { name: "Refrigator", price: 25000, rating: 4, category: "Electronics", brand: "Samsung", img: "https://pmcaonline.org/wp-content/uploads/2019/10/samsung1-1.jpg" },
       { name: "Washing Machine", price: 35000, rating: 4, category: "Electronics", brand: "LG", img: "https://www.lg.com/content/dam/channel/wcms/in/images/wm/fhp1412z9b/gallery/FHP1412Z9B-DZ-06.jpg/_jcr_content/renditions/thum-1600x1062.jpeg" },
 
@@ -80,16 +87,16 @@
       { name: "Furnitures", price: 35000, rating: 4, category: "Furnitures", brand: "TV Units", img: "https://www.orientbell.com/blog/wp-content/uploads/2023/04/Bedroom-TV-Unit-with-Lights.png" },
 
 
-      { name: "Books", price: 35000, rating: 4, category: "Books", brand: "GK for all competitive exams", img: "https://rukmini1.flixcart.com/image/300/300/xif0q/regionalbooks/r/3/w/lucent-general-knowledge-2025-arihant-general-knowledge-2026-original-imahenhy3hnhyccz.jpeg" },
-      { name: "Books", price: 20000, rating: 4, category: "Books", brand: "Novel Book", img: "https://www.chetanbhagat.com/wp-content/uploads/2018/the-girl-in-room-105.png" },
-      { name: "Books", price: 134900, rating: 3, category: "Books", brand: "R.S Aggarwal", img: "https://m.media-amazon.com/images/I/81e0cBrgHIL._SL1500_.jpg" },
-      { name: "Books", price: 25000, rating: 5, category: "Books", brand: "Chanakya Niti", img: "https://rukminim2.flixcart.com/image/832/832/xif0q/book/a/g/f/chanakya-niti-illustrated-hindi-original-imah3yph95kawdvz.jpeg?q=70&crop=false" },
+      { name: "Books", price: 350, rating: 4, category: "Books", brand: "GK for all competitive exams", img: "https://rukmini1.flixcart.com/image/300/300/xif0q/regionalbooks/r/3/w/lucent-general-knowledge-2025-arihant-general-knowledge-2026-original-imahenhy3hnhyccz.jpeg" },
+      { name: "Books", price: 200, rating: 4, category: "Books", brand: "Novel Book", img: "https://www.chetanbhagat.com/wp-content/uploads/2018/the-girl-in-room-105.png" },
+      { name: "Books", price: 1349, rating: 3, category: "Books", brand: "R.S Aggarwal", img: "https://m.media-amazon.com/images/I/81e0cBrgHIL._SL1500_.jpg" },
+      { name: "Books", price: 250, rating: 5, category: "Books", brand: "Chanakya Niti", img: "https://rukminim2.flixcart.com/image/832/832/xif0q/book/a/g/f/chanakya-niti-illustrated-hindi-original-imah3yph95kawdvz.jpeg?q=70&crop=false" },
 
-      { name: "Books", price: 55000, rating: 5, category: "Books", brand: "Magic practice Books", img: "https://rukmini1.flixcart.com/image/300/300/xif0q/regionalbooks/j/s/5/magic-practice-copybook-english-handwriting-drawing-book-set-original-imagm7rfndg9ggj6.jpeg" },
-      { name: "Books", price: 60000, rating: 5, category: "Books", brand: "Odia Barnabodha Book", img: "https://i.ytimg.com/vi/wJgaqnsVtvU/maxresdefault.jpg" },
-      { name: "Books", price: 3000, rating: 4, category: "Books", brand: "Fairy Tale Books", img: "https://www.sawanonlinebookstore.com/zubyheet/2020/12/Rapunzel-2-scaled.jpg" },
-      { name: "Books", price: 25000, rating: 4, category: "Books", brand: "Note Book", img: "https://m.media-amazon.com/images/I/51xJYvb9CrL._AC_.jpg" },
-      { name: "Books", price: 35000, rating: 3, category: "Books", brand: "Computer Book", img: "https://b3books.in/cdn/shop/files/computer.png?v=1763103023&width=823" },
+      { name: "Books", price: 550, rating: 5, category: "Books", brand: "Magic practice Books", img: "https://rukmini1.flixcart.com/image/300/300/xif0q/regionalbooks/j/s/5/magic-practice-copybook-english-handwriting-drawing-book-set-original-imagm7rfndg9ggj6.jpeg" },
+      { name: "Books", price: 600, rating: 5, category: "Books", brand: "Odia Barnabodha Book", img: "https://i.ytimg.com/vi/wJgaqnsVtvU/maxresdefault.jpg" },
+      { name: "Books", price: 300, rating: 4, category: "Books", brand: "Fairy Tale Books", img: "https://www.sawanonlinebookstore.com/zubyheet/2020/12/Rapunzel-2-scaled.jpg" },
+      { name: "Books", price: 250, rating: 4, category: "Books", brand: "Note Book", img: "https://m.media-amazon.com/images/I/51xJYvb9CrL._AC_.jpg" },
+      { name: "Books", price: 350, rating: 3, category: "Books", brand: "Computer Book", img: "https://b3books.in/cdn/shop/files/computer.png?v=1763103023&width=823" },
 
       { name: "T-Shirt", price: 1500, rating: 4, category: "Fashion", brand: "Nike", img: "https://cdn1.bambinifashion.com/img/p/1/8/3/9/8/2/183982--product.jpg" },
       { name: "Jeans", price: 2000, rating: 5, category: "Fashion", brand: "Levi's", img: "https://img.giglio.com/imager/prodZoom/F41615.009_1/levi-s.jpg" },
@@ -125,35 +132,82 @@
     let cart = [], wishlist = [];
 
     /* PRODUCTS */
-    function renderProducts() {
+    async function renderProducts() {
       const search = document.getElementById("search").value.toLowerCase();
       const category = document.getElementById("category-filter").value;
       const price = document.getElementById("price-filter").value;
       const rating = document.getElementById("rating-filter").value;
 
       const list = document.getElementById("product-list");
-      list.innerHTML = "";
+      list.innerHTML = "<p>Loading products...</p>";
 
-      products.filter(p => {
-        if (search && !p.name.toLowerCase().includes(search)) return false;
-        if (category !== "all" && p.category !== category) return false;
-        if (price === "low" && p.price >= 20000) return false;
-        if (price === "high" && p.price < 20000) return false;
-        if (rating !== "all" && p.rating < Number(rating)) return false;
-        return true;
-      }).forEach(p => {
-        list.innerHTML += `
+      try {
+        const params = new URLSearchParams();
+        if (search) params.append('search', search);
+        if (category !== "all") params.append('category', category);
+        if (price === "low") {
+          params.append('maxPrice', '20000');
+        } else if (price === "mid") {
+          params.append('minPrice', '300');
+          params.append('maxPrice', '50000');
+        } else if (price === "high") {
+          params.append('minPrice', '50000');
+        }
+        if (rating !== "all") params.append('rating', rating);
+
+        const response = await fetch(`http://localhost:5000/api/products?${params}`);
+        if (!response.ok) throw new Error('Failed to fetch products');
+        const fetchedProducts = await response.json();
+
+        list.innerHTML = "";
+
+        fetchedProducts.forEach(p => {
+          list.innerHTML += `
     <div class="card">
       <img src="${p.img}">
       <div class="card-content">
-        <h3>${p.brand}</h3>
+        <h3>${p.name}</h3>
+        <p>${p.brand}</p>
         <p>₹${p.price} ⭐${p.rating}</p>
        <div class="btn" onclick="addToCart('${p.name}',${p.price})">Cart</div>
        <div class="btn" onclick="addToWishlist('${p.name}',${p.price})">❤️</div>
       <div class="btn" onclick="showDetails('${p.name}', '${p.brand}', ${p.price}, ${p.rating}, '${p.img}')">Details</div>
       </div>
     </div>`;
-      });
+        });
+      } catch (error) {
+        console.error('Error rendering products:', error);
+        // Fallback to hardcoded products
+        list.innerHTML = "";
+        const filteredProducts = products.filter(p => {
+          if (
+            search &&
+            !p.name.toLowerCase().includes(search) &&
+            !p.brand.toLowerCase().includes(search)
+          ) return false;
+          if (category !== "all" && p.category !== category) return false;
+          if (price === "low" && p.price >= 20000) return false;
+          if (price === "mid" && (p.price < 20000 || p.price > 50000)) return false;
+          if (price === "high" && p.price <= 50000) return false;
+          if (rating !== "all" && p.rating < Number(rating)) return false;
+          return true;
+        });
+
+        filteredProducts.forEach(p => {
+          list.innerHTML += `
+    <div class="card">
+      <img src="${p.img}">
+      <div class="card-content">
+        <h3>${p.name}</h3>
+        <p>${p.brand}</p>
+        <p>₹${p.price} ⭐${p.rating}</p>
+       <div class="btn" onclick="addToCart('${p.name}',${p.price})">Cart</div>
+       <div class="btn" onclick="addToWishlist('${p.name}',${p.price})">❤️</div>
+      <div class="btn" onclick="showDetails('${p.name}', '${p.brand}', ${p.price}, ${p.rating}, '${p.img}')">Details</div>
+      </div>
+    </div>`;
+        });
+      }
     }
     let index = 0;
 
@@ -326,6 +380,9 @@ window.onclick = function(e) {
       m.style.display = m.style.display === "flex" ? "none" : "flex";
     }
     function filterCategory(cat) {
+      document.getElementById("search").value = "";
+      document.getElementById("price-filter").value = "all";
+      document.getElementById("rating-filter").value = "all";
       document.getElementById("category-filter").value = cat;
       renderProducts();
     }
@@ -361,13 +418,6 @@ window.onclick = function(e) {
       }
     });
 
-    /* INIT */
-    window.onload = function () {
-      if (localStorage.getItem("login") === "true") {
-        openStore();
-      }
-      renderProducts();
-    }
     document.getElementById("search").addEventListener("keyup", renderProducts);
     document.getElementById("category-filter").addEventListener("change", renderProducts);
     document.getElementById("price-filter").addEventListener("change", renderProducts);

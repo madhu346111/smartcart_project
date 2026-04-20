@@ -101,18 +101,12 @@ function openStore() {
 }
 
 // ============================================
-// AUTO LOGIN ON PAGE LOAD
+// PAGE LOAD
 // ============================================
 
+// Keep login manual. Do not auto-open store from previous token/user state.
 window.addEventListener("load", function () {
-  const token = localStorage.getItem("token");
-  const user = localStorage.getItem("user");
-
-  if (token && user) {
-    currentToken = token;
-    currentUser = JSON.parse(user);
-    openStore();
-  }
+  renderProducts();
 });
 
 // ============================================
@@ -131,28 +125,29 @@ function renderProducts() {
   if (search) query += `search=${encodeURIComponent(search)}&`;
   if (category && category !== "all") query += `category=${category}&`;
   if (priceFilter === "low") query += `maxPrice=20000&`;
-  if (priceFilter === "high") query += `minPrice=20000&`;
+  if (priceFilter === "high") query += `minPrice=300&`;
   if (ratingFilter && ratingFilter !== "all") query += `rating=${ratingFilter}&`;
 
   fetch(query)
     .then(res => res.json())
     .then(data => {
-      products = data;
+      products = [...data].sort((a, b) => a.name.localeCompare(b.name));
       const list = document.getElementById("product-list");
       if (!list) return;
       list.innerHTML = "";
 
-      if (data.length === 0) {
+      if (products.length === 0) {
         list.innerHTML = "<h2 style='text-align:center; grid-column: 1/-1;'>❌ No products found</h2>";
         return;
       }
 
-      data.forEach(p => {
+      products.forEach(p => {
         list.innerHTML += `
         <div class="card">
           <img src="${p.img}" alt="${p.brand}">
           <div class="card-content">
-            <h3>${p.brand}</h3>
+            <h3>${p.name}</h3>
+            <p>${p.brand}</p>
             <p>₹${p.price} ⭐${p.rating}</p>
             <div class="btn" onclick="addToCart('${p._id}', '${p.name}', ${p.price})">Cart</div>
             <div class="btn" onclick="addToWishlist('${p._id}', '${p.name}', ${p.price})">❤️</div>
@@ -493,7 +488,15 @@ window.onclick = (e) => {
 // ============================================
 
 function filterCategory(cat) {
+  const searchEl = document.getElementById("search");
   const filterEl = document.getElementById("category-filter");
+  const priceEl = document.getElementById("price-filter");
+  const ratingEl = document.getElementById("rating-filter");
+
+  if (searchEl) searchEl.value = "";
+  if (priceEl) priceEl.value = "all";
+  if (ratingEl) ratingEl.value = "all";
+
   if (filterEl) {
     filterEl.value = cat;
     renderProducts();
